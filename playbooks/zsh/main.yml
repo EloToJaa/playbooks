@@ -1,0 +1,43 @@
+---
+- name: Install zsh
+  hosts: desktop
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Install zsh
+      ansible.builtin.package:
+        name: zsh
+        state: present
+
+    - name: Remove .oh-my-zsh if it exists
+      ansible.builtin.file:
+        path: "{{ home }}/.oh-my-zsh"
+        state: absent
+
+    - name: Install zsh
+      ansible.builtin.include_role:
+        name: vaulttec.zsh
+
+    - name: Install starship
+      block:
+        - name: Check if starship is installed
+          ansible.builtin.command: starship --version
+          register: starship_version
+          ignore_errors: true
+          changed_when: starship_version.rc != 0
+
+        - name: Download starship
+          ansible.builtin.get_url:
+            url: https://starship.rs/install.sh
+            dest: "{{ home }}/install.sh"
+            owner: "{{ username }}"
+            group: "{{ username }}"
+            mode: 755
+          when: starship_version.rc != 0
+
+        - name: Run starship install script
+          ansible.builtin.shell: >
+            sh "{{ home }}/install.sh" -y
+          become: true
+          changed_when: starship_version.rc != 0
+          when: starship_version.rc != 0

@@ -1,0 +1,33 @@
+zsh_user:
+  - "{{ username }}"
+
+zsh_debug_startup_time: false
+
+zsh_ohmy_custom_plugins:
+  - name: zsh-syntax-highlighting
+    repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+  - name: zsh-autosuggestions
+    repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+
+zsh_ohmy_theme: mira
+
+zsh_ohmy_plugins:
+  - zsh-syntax-highlighting
+  - zsh-autosuggestions
+  - command-not-found
+  - git
+  - git-flow
+  - docker
+  - docker-compose
+  - node
+  - npm
+  - ruby
+  - rust
+  - golang
+  - dotnet
+  - dotenv
+  - python
+  - vscode
+  - vi-mode
+
+zsh_ohmy_disable_auto_update: false

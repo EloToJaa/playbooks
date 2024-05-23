@@ -1,0 +1,8 @@
+---
+roles:
+  - name: vaulttec.zsh
+collections:
+  - name: community.docker
+  - name: community.general
+  - name: community.crypto
+  - name: ansible.posix
